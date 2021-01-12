@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, SideMenu, PokemonArea, ScrollList } from './styles';
 import { useSelector } from 'react-redux';
 import {iPokemon} from '../../interfaces/Pokemon'
-import Pokemon_Product from '../../components/Pokemon_Product';
+import PokemonProduct from '../../components/PokemonProduct';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../../components/Header';
@@ -51,7 +51,7 @@ const getSearch = async (value: string) => {
           key={pkmn.number}
           to={`${window.location.pathname}/${pkmn.name}`}
           >
-            <Pokemon_Product pokemon={pkmn} />
+            <PokemonProduct pokemon={pkmn} />
           </Link>
         ))
       }
