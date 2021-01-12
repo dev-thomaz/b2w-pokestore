@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       const responseTypes = response.data.results;
       responseTypes.map((type: any, index: number) => {
         type.id = index += 1;
-        type.name === 'unknown' || type.name === 'shadow'
+      return  type.name === 'unknown' || type.name === 'shadow'
           ? console.log('')
           : responseReturn.push(type);
       });

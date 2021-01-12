@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {HiShoppingCart, HiHome, HiHeart} from 'react-icons/hi'
 import {RiFilePaper2Line} from 'react-icons/ri'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import LogoType from '../LogoType';
 import { Container, Logo, Input, LeftSide, NoInput } from './styles';
 

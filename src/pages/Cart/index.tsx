@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Types from '../../components/Types';
 import { iOrder } from '../../interfaces/Order';
-import { iPokemon_Product, iType, iTypes, iPokemon } from '../../interfaces/Pokemon';
+import { iPokemon_Product} from '../../interfaces/Pokemon';
 import { PriceText } from '../Pokemon/styles';
 
 import {
@@ -40,7 +40,7 @@ const Cart: React.FC = () => {
   useEffect(() => {
     let totalAmount = 0
     cartItems.map(item => {
-      totalAmount += item.pokemon.price * item.quantity
+     return totalAmount += item.pokemon.price * item.quantity
       
     })
     setAmount(totalAmount)

@@ -69,6 +69,7 @@ const Pokemon: React.FC = () => {
             movesWithType.push(item);
             return setPokemonMoves((arr) => [...arr, item]);
           });
+          return null
         });
 
         let numberpkmn = '' + pkmn.id;
@@ -220,8 +221,9 @@ const Pokemon: React.FC = () => {
           return setAdvantage(advantagearr);
         });
       });
+      return null
     });
-    console.log(weaknessarr);
+   
   };
 
   let formatter = new Intl.NumberFormat('pt-BR', {

@@ -14,7 +14,6 @@ const PokemonProduct: React.FC<PokemonProps> = (props) => {
   const [pokemonSprite, setPokemonSprite] = useState(loadPokemon);
   const pokemon = props.pokemon;
   const [pokemonID, setPokemonID] = useState(0);
-  const [pokemonDetail, setPokemonDetail] = useState(null);
   const [pokemonPrice, setPokemonPrice] = useState(0);
   const pokemonUrl = pokemon.url.split('v2/')[1];
   const [pokemonNumber, setPokemonNumber] = useState('');
@@ -35,7 +34,7 @@ const PokemonProduct: React.FC<PokemonProps> = (props) => {
     });
    
     
-  },[])
+  },[pokemonUrl])
 
 
 

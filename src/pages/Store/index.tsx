@@ -27,7 +27,7 @@ const getSearch = async (value: string) => {
   setSearchedPokemon([])
   if(value.length === 0){
     setSearchedPokemon(pokemon)
-  }else if(value.length > 2){
+  }else {
     setSearchedPokemon([])
     setSearchedPokemon(pokemon.filter(val => val.name.match(value) )
      
