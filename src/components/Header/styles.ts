@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { shade } from 'polished'
 import logo from '../../assets/logo.png';
 interface ContainerProps {
     type: string;
