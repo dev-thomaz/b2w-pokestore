@@ -139,6 +139,8 @@ export const MoveList = styled.div`
 display:flex;
 flex-wrap:wrap;
 flex-direction:row;
+justify-content:center;
+align-items:center;
 flex:1;
 margin:0,10px,0,10px;
 `
@@ -154,11 +156,12 @@ padding:5px;
 export const Weakness = styled.div`
 display:flex;
 flex:1;
-margin:0,10px,50px,10px;
+
 justify-content:center;
+align-items:center;
 font-weight:bold;
 font-size:18px;
-
+flex-direction:column;
 `
 export const ProductPriceArea = styled.div`
 display:flex;
@@ -174,4 +177,11 @@ justify-content:space-around;
 export const WeaknessAdvantage = styled.div`
 display:flex;
 
+`
+export const MovesArea = styled.div`
+display:flex;
+flex-direction: column;
+justify-content:center;
+align-items:center;
+margin-top:20px;
 `

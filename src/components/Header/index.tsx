@@ -12,7 +12,6 @@ interface HeaderProps{
 const Header: React.FC<HeaderProps> = (props) => {
   const [location, setLocation] = useState(window.location.pathname)
   const [showSearch, setShowSearch] = useState(false)
-  const navigate = useNavigate()
 
   useEffect(() => {
     window.location.pathname.split('/')[1] === 'cart' || window.location.pathname.split('/')[1].length < 1 ? setShowSearch(false) : setShowSearch(true)
@@ -20,7 +19,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     if(location !== window.location.pathname){
       setLocation(window.location.pathname)
     }
-  },[])
+  },[location])
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.searchPokemon(event.target.value)

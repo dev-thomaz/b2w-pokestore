@@ -7,10 +7,8 @@ import { Link } from 'react-router-dom';
 import {
   iPokemon,
   iPokemon_Product,
-  iTypes,
   iMoves,
   iType,
-  iMove,
   iPokemon_Favorite,
 } from '../../interfaces/Pokemon';
 import {
@@ -18,7 +16,6 @@ import {
   Container,
   FavoriteArea,
   InfoArea,
-  Move,
   MoveList,
   Weakness,
   FinishButton,
@@ -32,6 +29,7 @@ import {
   PokemonTypeStyle,
   ProductPriceArea,
   WeaknessAdvantage,
+  MovesArea,
 } from './styles';
 import Types from '../../components/Types';
 import Header from '../../components/Header';
@@ -43,13 +41,6 @@ interface PokemonStatus {
   special_attack: number;
   special_defense: number;
   speed: number;
-}
-interface PokemonDetail {
-  name: string;
-  id: number;
-  number: string;
-  price: number;
-  types: PokemonStatus[];
 }
 
 const Pokemon: React.FC = () => {
@@ -76,7 +67,7 @@ const Pokemon: React.FC = () => {
             item.move.type = pkmnMove.data.type.name;
 
             movesWithType.push(item);
-            setPokemonMoves((arr) => [...arr, item]);
+            return setPokemonMoves((arr) => [...arr, item]);
           });
         });
 
@@ -99,34 +90,13 @@ const Pokemon: React.FC = () => {
           6;
         let pkmnTypes: iType[] = [];
         response.data.types.map((type: any) => {
-          pkmnTypes.push(type.type);
+          return pkmnTypes.push(type.type);
         });
         pkmn.types = pkmnTypes;
 
         setPokemonTypes(pkmnTypes);
         setPokemonStatus(pkmnStatus);
-        let weaknessarr: any = [];
-        let advantagearr: any = [];
-        pokemonTypes.map((type, i) => {
-          api.get(`/type/${type.name}`).then((response) => {
-          const responseWeakness  = response.data.damage_relations.double_damage_from
-          responseWeakness.map(
-              (wknss: any) => {
-                weaknessarr.push(wknss);
-                setWeakness(weaknessarr);
-              }
-            );
-           const responseAdvantage =  response.data.damage_relations.double_damage_to
-           responseAdvantage.map(
-              (advtg: any) => {
-                advantagearr.push(advtg);
-                setAdvantage(advantagearr);
-              }
-            );
-          });
-        });
-        
-        
+        getAdvantagesAndWeakness(pkmnTypes);
 
         while (numberpkmn.length < 3) {
           numberpkmn = '0' + numberpkmn;
@@ -231,6 +201,29 @@ const Pokemon: React.FC = () => {
     }
   }, []);
 
+  const getAdvantagesAndWeakness = (types: iType[]) => {
+    let weaknessarr: any = [];
+    let advantagearr: any = [];
+
+    types.map((type, i) => {
+      api.get(`/type/${type.name}`).then((response) => {
+        const responseWeakness =
+          response.data.damage_relations.double_damage_from;
+        responseWeakness.map((wknss: any) => {
+          weaknessarr.push(wknss);
+          return setWeakness(weaknessarr);
+        });
+        const responseAdvantage =
+          response.data.damage_relations.double_damage_to;
+        responseAdvantage.map((advtg: any) => {
+          advantagearr.push(advtg);
+          return setAdvantage(advantagearr);
+        });
+      });
+    });
+    console.log(weaknessarr);
+  };
+
   let formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
@@ -303,36 +296,50 @@ const Pokemon: React.FC = () => {
             </PriceArea>
           </ProductPriceArea>
           <InfoArea>
-            
             <WeaknessAdvantage>
               <Weakness>
                 <p>
                   Weakness <FiArrowDownCircle />
                 </p>
-                {weakness.map((wknss: any, index: number) => (
-                  <Types key={index} attribute='type' name={`${wknss.name}`} />
-                ))}
+                <MoveList>
+                  {weakness.map((wknss: any, index: number) => (
+                    <Types
+                      key={index}
+                      attribute='type'
+                      name={`${wknss.name}`}
+                    />
+                  ))}
+                </MoveList>
               </Weakness>
               <Weakness>
                 <p>
                   Advantage <FiArrowUpCircle />
                 </p>
-                {advantage.map((advtg: any, index: number) => (
-                  <Types attribute='type' key={index} name={`${advtg.name}`} />
-                ))}
+                <MoveList>
+                  {advantage.map((advtg: any, index: number) => (
+                    <Types
+                      attribute='type'
+                      key={index}
+                      name={`${advtg.name}`}
+                    />
+                  ))}
+                </MoveList>
               </Weakness>
             </WeaknessAdvantage>
-            <h2>{pokemon.name} Can Learn:</h2>
-            <MoveList>
-              {pokemonMoves.map((move: iMoves, index: number) => (
-                <Types
-                  attribute='move'
-                  name={move.move.type}
-                  move={move.move.name}
-                  key={index + 1}
-                ></Types>
-              ))}
-            </MoveList>
+
+            <MovesArea>
+              <h2>{pokemon.name} Can Learn:</h2>
+              <MoveList>
+                {pokemonMoves.map((move: iMoves, index: number) => (
+                  <Types
+                    attribute='move'
+                    name={move.move.type}
+                    move={move.move.name}
+                    key={index + 1}
+                  ></Types>
+                ))}
+              </MoveList>
+            </MovesArea>
           </InfoArea>
         </Container>
       )}

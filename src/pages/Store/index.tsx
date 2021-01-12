@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, SideMenu, PokemonArea, ScrollList } from './styles';
-import { useSelector } from 'react-redux';
+import { Container, PokemonArea, ScrollList } from './styles';
 import {iPokemon} from '../../interfaces/Pokemon'
 import PokemonProduct from '../../components/PokemonProduct';
 import { Link } from 'react-router-dom';
@@ -9,7 +8,6 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 const Store: React.FC = () => {
   const [pokemon, setPokemon] = useState<iPokemon[]>([]);
-  const [searchTerm, setSearchTerm] = useState('')
   const [searchedPokemon, setSearchedPokemon] = useState<iPokemon[]>([])
   
   useEffect(() => {
@@ -18,7 +16,7 @@ const Store: React.FC = () => {
     api.get(`type${window.location.pathname}`).then((response) => {
       const pokemonResponse = response.data.pokemon;
       pokemonResponse.map((pkmn: iPokemon) => {
-        pokemonList.push(pkmn.pokemon)
+      return  pokemonList.push(pkmn.pokemon)
       })
       setPokemon(pokemonList);
       setSearchedPokemon(pokemonList)
@@ -27,7 +25,6 @@ const Store: React.FC = () => {
 const getSearch = async (value: string) => {
   
   setSearchedPokemon([])
-  let searchArray: iPokemon[] = []
   if(value.length === 0){
     setSearchedPokemon(pokemon)
   }else if(value.length > 2){
