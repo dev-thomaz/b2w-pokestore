@@ -62,7 +62,7 @@ background: rgb(255, 255, 255);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    width: 360px;
+    
     padding: 0px 30px;
 
 `
@@ -107,11 +107,12 @@ margin: 0px;
 export const FinishButton = styled.button`
     background: rgb(230, 0, 20);
     text-decoration: none;
-   text-align:center;
+    width:100%;
+    height:40px;
+    display: inline-block;
     border-radius: 3px;
    color:white;
-    padding: 15px ;
-    width: 100%;
+  margin-top:30px;
     font-weight:bold;
     :hover{
         cursor:pointer;
@@ -165,6 +166,7 @@ flex-direction:column;
 `
 export const ProductPriceArea = styled.div`
 display:flex;
+flex:1;
 
 `
 

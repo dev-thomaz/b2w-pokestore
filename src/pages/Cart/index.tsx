@@ -63,10 +63,10 @@ const Cart: React.FC = () => {
     // references are now sync'd and can be accessed.
   }
 
-  function closeModal() {
+  function closeModal(path: string) {
     setIsOpen(false);
     localStorage.setItem('@pokeStoreB2W:cart', '');
-    navigate('/');
+    navigate(path);
   }
 
   useEffect(() => {
@@ -109,8 +109,18 @@ const Cart: React.FC = () => {
       items: cartItems,
       amount: amount,
     };
-
-    localStorage.setItem('@pokeStoreB2W:order', JSON.stringify(orderData));
+    let orderList = []
+    const storagedOrders = localStorage.getItem('@pokeStoreB2W:order')
+    if(storagedOrders){
+      orderList = JSON.parse(storagedOrders)
+      orderList.unshift(orderData)
+      
+      localStorage.setItem('@pokeStoreB2W:order', JSON.stringify(orderList));
+    }else{
+      orderList.unshift(orderData)
+      localStorage.setItem('@pokeStoreB2W:order', JSON.stringify(orderList));
+    }
+    
     openModal();
   };
 
@@ -125,7 +135,7 @@ const Cart: React.FC = () => {
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
+        
         style={customStyles}
         contentLabel='Example Modal'
       >
@@ -138,7 +148,8 @@ const Cart: React.FC = () => {
               pedido o mais rápido possível
             </h3>
           </MessageModal>
-          <ButtonModal>Voltar para o início</ButtonModal>
+          <ButtonModal onClick={() => closeModal('/orders')}>Ver pedidos</ButtonModal>
+          <ButtonModal onClick={() => closeModal('/')}>Voltar para o início</ButtonModal>
         </ModalContainer>
       </Modal>
       <CartHeader>

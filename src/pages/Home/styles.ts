@@ -144,6 +144,7 @@ height:120px;
 display:flex;
 justify-content:center;
 align-items:center;
+text-transform: capitalize;
 flex-direction:column;
 text-align:center;
 `

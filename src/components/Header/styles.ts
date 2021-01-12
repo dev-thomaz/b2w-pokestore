@@ -15,6 +15,12 @@ background:#666;
 ${(props) => props.type === 'cart' && css`
 background:#666;
 `}
+${(props) => props.type === 'favorites' && css`
+background:#666;
+`}
+${(props) => props.type === 'orders' && css`
+background:#666;
+`}
 ${(props) => props.type === 'poison' && css`
 background:#B87EC8;
 `}

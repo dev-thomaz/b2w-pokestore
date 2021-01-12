@@ -3,6 +3,8 @@ import api from '../../services/api';
 import { Radar } from 'react-chartjs-2';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FiArrowDownCircle, FiArrowUpCircle } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import {
   iPokemon,
@@ -54,6 +56,7 @@ const Pokemon: React.FC = () => {
     null
   );
   const [pokemonTypes, setPokemonTypes] = useState<iType[]>([]);
+
   useEffect(() => {
     const pokemonName = window.location.pathname.split('/')[2].split('/')[0];
     api.get(`pokemon/${pokemonName}`).then((response) => {
@@ -69,7 +72,7 @@ const Pokemon: React.FC = () => {
             movesWithType.push(item);
             return setPokemonMoves((arr) => [...arr, item]);
           });
-          return null
+          return null;
         });
 
         let numberpkmn = '' + pkmn.id;
@@ -138,7 +141,25 @@ const Pokemon: React.FC = () => {
     });
   }, []);
 
+  const         capitalizaWord = (word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  }
+
+  const notify = (pokemon: iPokemon) => {
+    toast(`
+    ${capitalizaWord(pokemon.name)} adicionado ao carrinho!`, {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      
+    });
+  };
   const handleAddPokemonToCart = useCallback((pokemon: iPokemon) => {
+    notify(pokemon);
     let arrayPokemonCart: iPokemon_Product[] = [];
     const pokemonInCart = localStorage.getItem('@pokeStoreB2W:cart');
     if (pokemonInCart) {
@@ -221,9 +242,8 @@ const Pokemon: React.FC = () => {
           return setAdvantage(advantagearr);
         });
       });
-      return null
+      return null;
     });
-   
   };
 
   let formatter = new Intl.NumberFormat('pt-BR', {
@@ -235,17 +255,11 @@ const Pokemon: React.FC = () => {
     <div>
       {pokemon && (
         <Container>
+          <ToastContainer />
           <Header />
           <ProductPriceArea>
             <PokemonDetail>
               <HeaderInfo>
-                <FavoriteArea>
-                  <span>
-                    <AiOutlineHeart
-                      onClick={() => handleAddPokemonToFavs(pokemon)}
-                    />
-                  </span>
-                </FavoriteArea>
                 <PokemonTypeStyle>
                   {pokemonTypes.map((type: iType) => (
                     <Types attribute='type' name={`${type.name}`} />
@@ -274,6 +288,14 @@ const Pokemon: React.FC = () => {
               </ImageStatusArea>
             </PokemonDetail>
             <PriceArea>
+            <PaymentArea>
+                <FinishButton
+                 
+                  onClick={() => handleAddPokemonToCart(pokemon)}
+                >
+                  Adicionar ao Carrinho
+                </FinishButton>
+              </PaymentArea>
               <PriceText>{formatter.format(pokemon.price)}</PriceText>
               <AddressArea>
                 <p>
@@ -285,17 +307,9 @@ const Pokemon: React.FC = () => {
                   dias.
                 </p>
               </AddressArea>
-              <PaymentArea>
-                <Link to='/cart'>
-                  <FinishButton
-                    type='button'
-                    onClick={() => handleAddPokemonToCart(pokemon)}
-                  >
-                    Adicionar ao Carrinho
-                  </FinishButton>
-                </Link>
-              </PaymentArea>
+        
             </PriceArea>
+            
           </ProductPriceArea>
           <InfoArea>
             <WeaknessAdvantage>
