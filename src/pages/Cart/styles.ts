@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-
+import dragonite from '../../assets/delivery.png'
 interface ButtonQtdProps{
 operation:string;
 }
@@ -132,6 +132,65 @@ width:100%;
 height:40px;
 background:red;
 color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:20px;
+`
+
+export const ModalContainer = styled.div`
+background: #dedede url(${dragonite});
+background-position:center;
+background-size:cover;
+background-repeat:no-repeat;
+display:flex;
+justify-content:center;
+flex:1 1;
+flex-direction:column;
+height:100%;
+padding:10px;
+align-items:center;
+H2{
+  opacity:1;
+}
+`
+
+export const MessageModal = styled.div`
+text-align:center;
+background: rgb(255, 255, 255, 0.4);
+border-radius:5px;
+
+h2{
+  margin-top:15px;
+}
+
+`
+export const ButtonModal = styled.button`
+
+width:80%;
+height:40px;
+background:red;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:20px;
+`
+export const EmptyCart = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+height:100%;
+flex-direction:column;
+
+
+`
+
+export const EmptyCartButton = styled.button`
+background: #dedede;
+width:100%;
+height:40px;
+color:black;
 display:flex;
 justify-content:center;
 align-items:center;
